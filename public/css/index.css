@@ -1,0 +1,42 @@
+body {
+  padding-top: 56px;
+  color: #fff;
+  background-color: #000;
+}
+
+body * {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.tooltip-inner {
+  color: #000;
+  background-color: #fff;
+}
+
+.bs-tooltip-top .arrow::before {
+  border-top-color: #fff;
+}
+
+.navbar-brand,
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bebas Neue', cursive;
+}
+
+.error {
+  height: calc(100vh - 56px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+}
+
+.error > div {
+  padding: 24px;
+  color: #FAFAFA;
+  text-align: center;
+  position: relative;
+}
+
+.error > div > .code {
+  font-size: 4rem;
+}

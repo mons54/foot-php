@@ -2,7 +2,7 @@
 <?php $title = $team->getName() . " - Fiche équipe"; ?>
 <?php
   $description = $team->getName() .
-  " est une équipe française fondé en " . $team->getFundationDate()->format('Y') .
+  " est une équipe française fondé en " . $team->getFundationDate() .
   ", sous la présidence de " . $team->getPresident() .
   ", l'entraineur actuel se nomme " . $coach->getName() .
   ".";
@@ -26,7 +26,7 @@
             </tr>
             <tr>
               <th scope="row">Fondé en</th>
-              <td><?= $team->getFundationDate()->format('Y'); ?></td>
+              <td><?= $team->getFundationDate(); ?></td>
             </tr>
             <tr>
               <th scope="row">Président</th>
@@ -39,6 +39,102 @@
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+  <div class="jumbotron bg-dark mt-5">
+    <nav>
+      <div class="nav nav-tabs" id="tab" role="tablist">
+        <a
+          id="joueurs-tab"
+          class="nav-item nav-link active"
+          data-toggle="tab"
+          href="#joueurs"
+          role="tab"
+          aria-controls="joueurs"
+          aria-selected="true">
+          Joueurs
+        </a>
+        <a
+          id="matchs-tab"
+          class="nav-item nav-link"
+          data-toggle="tab"
+          href="#matchs"
+          role="tab"
+          aria-controls="matchs"
+          aria-selected="false">
+          Matchs
+        </a>
+        <a
+          id="administratif-tab"
+          class="nav-item nav-link"
+          data-toggle="tab"
+          href="#administratif"
+          role="tab"
+          aria-controls="administratif"
+          aria-selected="false">
+          Administratif
+        </a>
+        <a
+          id="administratif-tab"
+          class="nav-item nav-link"
+          data-toggle="tab"
+          href="#administratif"
+          role="tab"
+          aria-controls="administratif"
+          aria-selected="false">
+          Stade
+        </a>
+      </div>
+    </nav>
+    <div class="tab-content" id="tab-content">
+      <section
+        id="joueurs"
+        class="tab-pane fade show active"
+        role="tabpanel"
+        aria-labelledby="joueurs-tab">
+        <table class="table table-dark">
+          <thead>
+            <tr style="border-top: 2px solid">
+              <th scope="col">Numéro</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Pays</th>
+              <th scope="col">Né le</th>
+              <th scope="col">Poste</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php $poste = null; ?>
+            <?php foreach ($players as $player): ?>
+              <tr style="<?= $poste !== $player->getPoste() ? 'border-top: 2px solid' : '' ?>">
+                <th scope="row"><?= $player->getNumber() ?></th>
+                <td><strong><?= $player->getName() ?></strong></td>
+                <td><?= $player->getNationality() ?></td>
+                <td><?= $player->getBirthdayDate() ?></td>
+                <td><?= $player->getPoste() ?></td>
+              </tr>
+              <?php $poste = $player->getPoste(); ?>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </section>
+      <section
+        id="matchs"
+        class="tab-pane fade show"
+        role="tabpanel"
+        aria-labelledby="matchs-tab">
+      </section>
+      <section
+        id="administratif"
+        class="tab-pane fade show"
+        role="tabpanel"
+        aria-labelledby="administratif-tab">
+      </section>
+      <section
+        id="stade"
+        class="tab-pane fade show"
+        role="tabpanel"
+        aria-labelledby="stade-tab">
+      </section>
     </div>
   </div>
 </div>

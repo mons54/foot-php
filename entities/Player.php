@@ -2,7 +2,7 @@
 
 namespace Entities;
 
-class Coach extends Entity
+class Player extends Entity
 {
   /**
    * @var int
@@ -15,6 +15,11 @@ class Coach extends Entity
   protected $name;
 
   /**
+   * @var string
+   */
+  protected $short_name;
+
+  /**
    * @var string|null
    */
   protected $birthday_date;
@@ -25,9 +30,24 @@ class Coach extends Entity
   protected $birthday_place;
 
   /**
+   * @var int|null
+   */
+  protected $weight;
+
+  /**
+   * @var int|null
+   */
+  protected $size;
+
+  /**
    * @var string|null
    */
   protected $nationality;
+
+  /**
+   * @var string|null
+   */
+  protected $poste;
 
   /**
    * @var string|null
@@ -38,6 +58,11 @@ class Coach extends Entity
    * @var string|null
    */
   protected $link;
+
+  /**
+   * @var int|null
+   */
+  protected $number;
 
   /**
    * Get the value of Id
@@ -88,19 +113,43 @@ class Coach extends Entity
   }
 
   /**
+   * Get the value of Short Name
+   *
+   * @return string
+   */
+  public function getShortName():string
+  {
+    return $this->short_name;
+  }
+
+  /**
+   * Set the value of Short Name
+   *
+   * @param string $short_name
+   *
+   * @return self
+   */
+  public function setShortName(string $short_name)
+  {
+    $this->short_name = $short_name;
+
+    return $this;
+  }
+
+  /**
    * Get the value of Birthday Date
    *
    * @return string|null
    */
   public function getBirthdayDate():?string
   {
-    return $this->birthdayDate ? (new \DateTime($this->birthday_date))->format('d/m/Y') : null;
+    return $this->birthday_date ? (new \DateTime($this->birthday_date))->format('d/m/Y') : null;
   }
 
   /**
    * Set the value of Birthday Date
    *
-   * @param string|null $birthdayDate
+   * @param string|null $birthday_date
    *
    * @return self
    */
@@ -126,13 +175,61 @@ class Coach extends Entity
   /**
    * Set the value of Birthday Place
    *
-   * @param string|null $birthdayPlace
+   * @param string|null $birthday_place
    *
    * @return self
    */
   public function setBirthdayPlace(?string $birthday_place)
   {
     $this->birthday_place = $birthday_place;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of Weight
+   *
+   * @return int|null
+   */
+  public function getWeight():?int
+  {
+    return $this->weight;
+  }
+
+  /**
+   * Set the value of Weight
+   *
+   * @param int|null $weight
+   *
+   * @return self
+   */
+  public function setWeight(?int $weight)
+  {
+    $this->weight = $weight;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of Size
+   *
+   * @return int|null
+   */
+  public function getSize():?int
+  {
+    return $this->size;
+  }
+
+  /**
+   * Set the value of Size
+   *
+   * @param int|null $size
+   *
+   * @return self
+   */
+  public function setSize(?int $size)
+  {
+    $this->size = $size;
 
     return $this;
   }
@@ -157,6 +254,30 @@ class Coach extends Entity
   public function setNationality(?string $nationality)
   {
     $this->nationality = $nationality;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of Poste
+   *
+   * @return string|null
+   */
+  public function getPoste():?string
+  {
+    return $this->poste;
+  }
+
+  /**
+   * Set the value of Poste
+   *
+   * @param string|null $poste
+   *
+   * @return self
+   */
+  public function setPoste(?string $poste)
+  {
+    $this->poste = $poste;
 
     return $this;
   }
@@ -205,6 +326,31 @@ class Coach extends Entity
   public function setLink(?string $link)
   {
     $this->link = $link;
+
+    return $this;
+  }
+
+
+  /**
+   * Get the value of Number
+   *
+   * @return int|null
+   */
+  public function getNumber():?int
+  {
+    return $this->number;
+  }
+
+  /**
+   * Set the value of Number
+   *
+   * @param int|null $number
+   *
+   * @return self
+   */
+  public function setNumber(?int $number)
+  {
+    $this->number = $number;
 
     return $this;
   }

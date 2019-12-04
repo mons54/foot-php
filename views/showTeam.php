@@ -122,6 +122,51 @@
         class="tab-pane fade show"
         role="tabpanel"
         aria-labelledby="matchs-tab">
+        <?php if (!empty($matchsPlayed)): ?>
+          <h3>Résultats</h3>
+          <table class="table table-dark">
+            <tbody>
+              <?php foreach ($matchsPlayed as $match): ?>
+                <tr>
+                  <td class="text-right">
+                    <a href="./teams/<?= $match->getIdTeamHome() ?>">
+                      <?= $match->getNameTeamHome() ?>
+                    </a>
+                  </td>
+                  <td class="text-center"><?= $match->getScoreHome() ?> - <?= $match->getScoreAway() ?></td>
+                  <td class="text-left">
+                    <a href="./teams/<?= $match->getIdTeamAway() ?>">
+                      <?= $match->getNameTeamAway() ?>
+                    </a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        <?php endif; ?>
+
+        <?php if (!empty($matchsNotPlayed)): ?>
+          <h3>Rencontres à venir</h3>
+          <table class="table table-dark">
+            <tbody>
+              <?php foreach ($matchsNotPlayed as $match): ?>
+                <tr>
+                  <td class="text-right">
+                    <a href="./teams/<?= $match->getIdTeamHome() ?>">
+                      <?= $match->getNameTeamHome() ?>
+                    </a>
+                  </td>
+                  <td class="text-center"><?= $match->getScoreHome() ?> - <?= $match->getScoreAway() ?></td>
+                  <td class="text-left">
+                    <a href="./teams/<?= $match->getIdTeamAway() ?>">
+                      <?= $match->getNameTeamAway() ?>
+                    </a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        <?php endif; ?>
       </section>
       <section
         id="administratif"

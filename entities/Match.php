@@ -25,6 +25,16 @@ class Match extends Entity
   protected $id_team_away;
 
   /**
+   * @var int
+   */
+  protected $name_team_home;
+
+  /**
+   * @var int
+   */
+  protected $name_team_away;
+
+  /**
    * @var int|null
    */
   protected $score_home;
@@ -235,5 +245,54 @@ class Match extends Entity
 
     return $this;
   }
+
+
+    /**
+     * Get the value of Name Team Home
+     *
+     * @return int
+     */
+    public function getNameTeamHome()
+    {
+        return $this->name_team_home;
+    }
+
+    /**
+     * Set the value of Name Team Home
+     *
+     * @param int $name_team_home
+     *
+     * @return self
+     */
+    public function setNameTeamHome($name_team_home)
+    {
+        $this->name_team_home = $name_team_home;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Name Team Away
+     *
+     * @return int
+     */
+    public function getNameTeamAway()
+    {
+        return $this->name_team_away;
+    }
+
+    /**
+     * Set the value of Name Team Away
+     *
+     * @param int $name_team_away
+     *
+     * @return self
+     */
+    public function setNameTeamAway($name_team_away)
+    {
+        $this->name_team_away = $name_team_away;
+
+        return $this;
+    }
 
 }

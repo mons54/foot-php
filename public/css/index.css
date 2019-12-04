@@ -8,6 +8,15 @@ body * {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+a {
+  color: #E0E0E0;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
 .nav-tabs a {
   color: #fff;
   margin-right: 0.4rem;

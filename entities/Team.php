@@ -134,7 +134,7 @@ class Team extends Entity
    */
   public function getShortName():string
   {
-    return $this->short_name;
+    return explode('(', ucfirst(strtolower($this->short_name)))[0];
   }
 
   /**

@@ -8,6 +8,23 @@
   ".";
 ?>
 
+<style>
+.match-home,
+.match-away {
+  width: 50%;
+}
+
+.match-info {
+  min-width: 52px;
+}
+
+@media (max-width: 767px) {
+  .nav-tabs a {
+    padding: .5rem .6rem;
+  }
+}
+</style>
+
 <div class="container">
   <div class="jumbotron bg-dark mt-5">
     <div class="row">
@@ -78,7 +95,7 @@
           id="administratif-tab"
           class="nav-item nav-link"
           data-toggle="tab"
-          href="#administratif"
+          href="#stade"
           role="tab"
           aria-controls="administratif"
           aria-selected="false">
@@ -97,8 +114,8 @@
             <tr style="border-top: 2px solid">
               <th scope="col">Numéro</th>
               <th scope="col">Nom</th>
-              <th scope="col">Pays</th>
-              <th scope="col">Né le</th>
+              <th class="d-none d-md-table-cell" scope="col">Pays</th>
+              <th class="d-none d-md-table-cell" scope="col">Né le</th>
               <th scope="col">Poste</th>
             </tr>
           </thead>
@@ -108,8 +125,8 @@
               <tr style="<?= $poste !== $player->getPoste() ? 'border-top: 2px solid' : '' ?>">
                 <th scope="row"><?= $player->getNumber() ?></th>
                 <td><strong><?= $player->getName() ?></strong></td>
-                <td><?= $player->getNationality() ?></td>
-                <td><?= $player->getBirthdayDate() ?></td>
+                <td class="d-none d-md-table-cell"><?= $player->getNationality() ?></td>
+                <td class="d-none d-md-table-cell"><?= $player->getBirthdayDate() ?></td>
                 <td><?= $player->getPoste() ?></td>
               </tr>
               <?php $poste = $player->getPoste(); ?>
@@ -123,20 +140,22 @@
         role="tabpanel"
         aria-labelledby="matchs-tab">
         <?php if (!empty($matchsPlayed)): ?>
-          <h3>Résultats</h3>
-          <table class="table table-dark">
+          <h4 class="mt-3">Résultats</h4>
+          <table class="table table-dark matchs">
             <tbody>
               <?php foreach ($matchsPlayed as $match): ?>
                 <tr>
-                  <td class="text-right">
+                  <td class="text-right match-home">
                     <a href="./teams/<?= $match->getIdTeamHome() ?>">
-                      <?= $match->getNameTeamHome() ?>
+                      <?= $match->getTeamHome()->getShortName() ?>
                     </a>
                   </td>
-                  <td class="text-center"><?= $match->getScoreHome() ?> - <?= $match->getScoreAway() ?></td>
-                  <td class="text-left">
+                  <td class="text-center match-info">
+                    <?= $match->getScoreHome() ?> - <?= $match->getScoreAway() ?>
+                  </td>
+                  <td class="text-left match-away">
                     <a href="./teams/<?= $match->getIdTeamAway() ?>">
-                      <?= $match->getNameTeamAway() ?>
+                      <?= $match->getTeamAway()->getShortName() ?>
                     </a>
                   </td>
                 </tr>
@@ -146,20 +165,23 @@
         <?php endif; ?>
 
         <?php if (!empty($matchsNotPlayed)): ?>
-          <h3>Rencontres à venir</h3>
+          <h4 class="mt-3">Rencontres à venir</h4>
           <table class="table table-dark">
             <tbody>
               <?php foreach ($matchsNotPlayed as $match): ?>
                 <tr>
-                  <td class="text-right">
+                  <td class="text-right match-home">
                     <a href="./teams/<?= $match->getIdTeamHome() ?>">
-                      <?= $match->getNameTeamHome() ?>
+                      <?= $match->getTeamHome()->getShortName() ?>
                     </a>
                   </td>
-                  <td class="text-center"><?= $match->getScoreHome() ?> - <?= $match->getScoreAway() ?></td>
-                  <td class="text-left">
+                  <td class="text-center match-info">
+                    <span class="d-md-none">-</span>
+                    <span class="d-none d-md-block"><?= $match->getDate() ?></span>
+                  </td>
+                  <td class="text-left match-away">
                     <a href="./teams/<?= $match->getIdTeamAway() ?>">
-                      <?= $match->getNameTeamAway() ?>
+                      <?= $match->getTeamAway()->getShortName() ?>
                     </a>
                   </td>
                 </tr>

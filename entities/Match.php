@@ -25,16 +25,6 @@ class Match extends Entity
   protected $id_team_away;
 
   /**
-   * @var int
-   */
-  protected $name_team_home;
-
-  /**
-   * @var int
-   */
-  protected $name_team_away;
-
-  /**
    * @var int|null
    */
   protected $score_home;
@@ -53,6 +43,16 @@ class Match extends Entity
    * @var string
    */
   protected $date;
+
+  /**
+   * @var Team
+   */
+  protected $teamHome;
+
+  /**
+   * @var Team
+   */
+  protected $teamAway;
 
   /**
    * Get the value of Id
@@ -248,49 +248,49 @@ class Match extends Entity
 
 
     /**
-     * Get the value of Name Team Home
+     * Get the value of Team Home
      *
-     * @return int
+     * @return Team
      */
-    public function getNameTeamHome()
+    public function getTeamHome():Team
     {
-        return $this->name_team_home;
+        return $this->teamHome;
     }
 
     /**
-     * Set the value of Name Team Home
+     * Set the value of Team Home
      *
-     * @param int $name_team_home
+     * @param Team $teamHome
      *
      * @return self
      */
-    public function setNameTeamHome($name_team_home)
+    public function setTeamHome(Team $teamHome)
     {
-        $this->name_team_home = $name_team_home;
+        $this->teamHome = $teamHome;
 
         return $this;
     }
 
     /**
-     * Get the value of Name Team Away
+     * Get the value of Team Away
      *
-     * @return int
+     * @return Team
      */
-    public function getNameTeamAway()
+    public function getTeamAway():Team
     {
-        return $this->name_team_away;
+        return $this->teamAway;
     }
 
     /**
-     * Set the value of Name Team Away
+     * Set the value of Team Away
      *
-     * @param int $name_team_away
+     * @param Team $teamAway
      *
      * @return self
      */
-    public function setNameTeamAway($name_team_away)
+    public function setTeamAway(Team $teamAway)
     {
-        $this->name_team_away = $name_team_away;
+        $this->teamAway = $teamAway;
 
         return $this;
     }

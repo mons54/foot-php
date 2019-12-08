@@ -295,4 +295,30 @@ class Match extends Entity
         return $this;
     }
 
+    /**
+     * @param Team $team
+     *
+     * @return bool
+     */
+    public function isWinner (Team $team):bool
+    {
+      return (
+        $this->getIdTeamHome() === $team->getId() && $this->getScoreHome() > $this->getScoreAway() ||
+        $this->getIdTeamAway() === $team->getId() && $this->getScoreHome() < $this->getScoreAway()
+      );
+    }
+
+    /**
+     * @param Team $team
+     *
+     * @return bool
+     */
+    public function isLoser (Team $team):bool
+    {
+      return (
+        $this->getIdTeamHome() === $team->getId() && $this->getScoreHome() < $this->getScoreAway() ||
+        $this->getIdTeamAway() === $team->getId() && $this->getScoreHome() > $this->getScoreAway()
+      );
+    }
+
 }

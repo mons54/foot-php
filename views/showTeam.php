@@ -15,12 +15,16 @@
 }
 
 .match-info {
-  min-width: 52px;
+  min-width: 80px;
 }
 
 @media (max-width: 767px) {
   .nav-tabs a {
     padding: .5rem .6rem;
+  }
+
+  .match-info {
+    min-width: 52px;
   }
 }
 </style>
@@ -124,7 +128,62 @@
             <?php foreach ($players as $player): ?>
               <tr style="<?= $poste !== $player->getPoste() ? 'border-top: 2px solid' : '' ?>">
                 <th scope="row"><?= $player->getNumber() ?></th>
-                <td><strong><?= $player->getName() ?></strong></td>
+                <td>
+                  <a href="#" data-toggle="modal" data-target="#player<?= $player->getId() ?>">
+                    <strong><?= $player->getName() ?></strong>
+                  </a>
+                  <div class="modal fade" id="player<?= $player->getId() ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content bg-dark">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="player<?= $player->getId() ?>Label">
+                            <?= $player->getName() ?>
+                          </h5>
+                        </div>
+                        <div class="modal-body">
+                          <div class="d-flex mb-3">
+                            <img style="max-height:140px; border-radius: 8px;" src="<?= $player->getPhoto(); ?>">
+                            <img class="ml-auto" style="max-height:140px" src="<?= $team->getLogo(); ?>">
+                          </div>
+                          <table class="table table-bordered text-light">
+                            <tbody>
+                              <tr>
+                                <td>Age</td>
+                                <th>
+                                  <?= $player->getAge() ? $player->getAge() . ' ans' : 'Inconnu'; ?>
+                                </th>
+                              </tr>
+                              <tr>
+                                <td>Né le</td>
+                                <th>
+                                  <?= $player->getBirthdayDate(); ?> à <?= $player->getBirthdayPlace(); ?>
+                                </th>
+                              </tr>
+                              <?php if ($player->getSize()): ?>
+                                <tr>
+                                  <td>Taille</td>
+                                  <th>
+                                    <?= str_replace('.', 'm', (string) $player->getSize() / 100); ?>
+                                  </th>
+                                </tr>
+                              <?php endif; ?>
+                              <?php if ($player->getWeight()): ?>
+                                <tr>
+                                  <td>Poids</td>
+                                  <th><?= $player->getWeight(); ?> kg</th>
+                                </tr>
+                              <?php endif; ?>
+                              <tr>
+                                <td>Numéro</td>
+                                <th><?= $player->getNumber(); ?></th>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
                 <td class="d-none d-md-table-cell"><?= $player->getNationality() ?></td>
                 <td class="d-none d-md-table-cell"><?= $player->getBirthdayDate() ?></td>
                 <td><?= $player->getPoste() ?></td>
@@ -146,15 +205,22 @@
               <?php foreach ($matchsPlayed as $match): ?>
                 <tr>
                   <td class="text-right match-home">
-                    <a href="./teams/<?= $match->getIdTeamHome() ?>">
+                    <a
+                      <?= $match->getIdTeamHome() === $team->getId() ? 'class="font-weight-bold"' : '' ?>
+                      href="./teams/<?= $match->getIdTeamHome() ?>">
                       <?= $match->getTeamHome()->getShortName() ?>
                     </a>
                   </td>
-                  <td class="text-center match-info">
+                  <td class="text-center match-info
+                    <?= $match->isWinner($team) ? 'text-success font-weight-bold' : '' ?>
+                    <?= $match->isLoser($team) ? 'text-danger' : '' ?>
+                  ">
                     <?= $match->getScoreHome() ?> - <?= $match->getScoreAway() ?>
                   </td>
                   <td class="text-left match-away">
-                    <a href="./teams/<?= $match->getIdTeamAway() ?>">
+                    <a
+                      <?= $match->getIdTeamAway() === $team->getId() ? 'class="font-weight-bold"' : '' ?>
+                      href="./teams/<?= $match->getIdTeamAway() ?>">
                       <?= $match->getTeamAway()->getShortName() ?>
                     </a>
                   </td>
@@ -171,7 +237,9 @@
               <?php foreach ($matchsNotPlayed as $match): ?>
                 <tr>
                   <td class="text-right match-home">
-                    <a href="./teams/<?= $match->getIdTeamHome() ?>">
+                    <a
+                      <?= $match->getIdTeamHome() === $team->getId() ? 'class="font-weight-bold"' : '' ?>
+                      href="./teams/<?= $match->getIdTeamHome() ?>">
                       <?= $match->getTeamHome()->getShortName() ?>
                     </a>
                   </td>
@@ -180,7 +248,9 @@
                     <span class="d-none d-md-block"><?= $match->getDate() ?></span>
                   </td>
                   <td class="text-left match-away">
-                    <a href="./teams/<?= $match->getIdTeamAway() ?>">
+                    <a
+                      <?= $match->getIdTeamAway() === $team->getId() ? 'class="font-weight-bold"' : '' ?>
+                      href="./teams/<?= $match->getIdTeamAway() ?>">
                       <?= $match->getTeamAway()->getShortName() ?>
                     </a>
                   </td>
@@ -195,12 +265,60 @@
         class="tab-pane fade show"
         role="tabpanel"
         aria-labelledby="administratif-tab">
+        <table class="table table-bordered text-light">
+          <tbody>
+            <tr>
+              <td>Site</td>
+              <th>
+                <a href="//<?= $team->getWebsite(); ?>"><?= $team->getWebsite(); ?></a>
+              </th>
+            </tr>
+            <tr>
+              <td>Siège</td>
+              <th>
+                <a href="https://maps.google.com/?q=<?= $team->getAdress(); ?>">
+                  <?= $team->getAdress(); ?>
+                </a>
+              </th>
+            </tr>
+            <tr>
+              <td>Fiche</td>
+              <th><a href="<?= $team->getLink(); ?>">Fiche l'équipe</a></th>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section
         id="stade"
         class="tab-pane fade show"
         role="tabpanel"
         aria-labelledby="stade-tab">
+        <table class="table table-bordered text-light">
+          <tbody>
+            <tr>
+              <td>Stade</td>
+              <th><?= $stadium->getName(); ?></th>
+            </tr>
+            <tr>
+              <td>Capacité</td>
+              <th><?= $stadium->getCapacity(); ?></th>
+            </tr>
+            <tr>
+              <td>Adresse</td>
+              <th>
+                <a href="https://maps.google.com/?q=<?= $stadium->getAdress(); ?>">
+                  <?= $stadium->getAdress(); ?>
+                </a>
+              </th>
+            </tr>
+            <tr>
+              <td>Tél</td>
+              <th>
+                <a href="tel:<?= $stadium->getTel(); ?>"><?= $stadium->getTel(); ?></a>
+              </th>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </div>
   </div>

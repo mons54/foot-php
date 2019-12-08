@@ -355,4 +355,16 @@ class Player extends Entity
     return $this;
   }
 
+  /**
+   * @return int
+   */
+  public function getAge():int
+  {
+    if (!$this->birthday_date) {
+      return null;
+    }
+
+    return (new \DateTime($this->birthday_date))->diff(new \DateTime())->y;
+  }
+
 }

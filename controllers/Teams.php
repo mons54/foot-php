@@ -5,6 +5,7 @@ use Models\Teams as ModelTeams;
 use Models\Coachs;
 use Models\Matchs;
 use Models\Players;
+use Models\Stadiums;
 
 class Teams extends Controller
 {
@@ -32,6 +33,7 @@ class Teams extends Controller
       'players' => $players,
       'matchsPlayed' => (new Matchs)->getMatchsPlayedByTeam($id),
       'matchsNotPlayed' => (new Matchs)->getMatchsNotPlayedByTeam($id),
+      'stadium' => (new Stadiums)->getStadiumByTeam($id),
     ]);
   }
 
